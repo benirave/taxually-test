@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxually.TexhnicalTest.Inte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxually.TechnicalTest.ApiClient", "Taxually.TechnicalTest.ApiClient\Taxually.TechnicalTest.ApiClient.csproj", "{F367031C-30D0-4E37-95F5-B3B5D47E1F7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxually.TechnicalTest.Tests", "Taxually.TechnicalTest.Tests\Taxually.TechnicalTest.Tests.csproj", "{3698269F-7548-4434-851C-D50D535626C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F367031C-30D0-4E37-95F5-B3B5D47E1F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F367031C-30D0-4E37-95F5-B3B5D47E1F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F367031C-30D0-4E37-95F5-B3B5D47E1F7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3698269F-7548-4434-851C-D50D535626C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3698269F-7548-4434-851C-D50D535626C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3698269F-7548-4434-851C-D50D535626C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3698269F-7548-4434-851C-D50D535626C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
