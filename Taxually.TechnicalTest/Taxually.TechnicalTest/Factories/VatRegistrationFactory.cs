@@ -11,6 +11,7 @@ public class VatRegistrationFactory : IVatRegistrationFactory
         _serviceProvider = serviceProvider;
     }
 
+    /// <inheritdoc />
     public IVatRegistrationService GetVatRegistrationService(string countryCode)
     {
         var varRegistrationServices = _serviceProvider.GetServices<IVatRegistrationService>();
@@ -18,8 +19,8 @@ public class VatRegistrationFactory : IVatRegistrationFactory
         return countryCode switch
         {
             "GB" => varRegistrationServices.First(x => x.GetType() == typeof(UnitedKingdomVatRegistrationService)),
-            "FR" => varRegistrationServices.First(x => x.GetType() == typeof(FrenchVatRegistrationService)),
-            "DE" => varRegistrationServices.First(x => x.GetType() == typeof(GermanVatRegistrationService)),
+            "FR" => varRegistrationServices.First(x => x.GetType() == typeof(FranceVatRegistrationService)),
+            "DE" => varRegistrationServices.First(x => x.GetType() == typeof(GermanyVatRegistrationService)),
             _ => throw new Exception("Country not supported")
         };
     }

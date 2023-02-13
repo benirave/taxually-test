@@ -3,8 +3,12 @@ using Taxually.TechnicalTest.Models;
 
 namespace Taxually.TechnicalTest.Services;
 
-public class GermanVatRegistrationService : IVatRegistrationService
+/// <summary>
+/// <see cref="IVatRegistrationService"/> implementation for Germany
+/// </summary>
+public class GermanyVatRegistrationService : IVatRegistrationService
 {
+    /// <inheritdoc />
     public async Task RegisterCompany(VatRegistrationRequest request)
     {
         using (var stringwriter = new StringWriter())

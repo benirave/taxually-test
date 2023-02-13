@@ -3,8 +3,12 @@ using Taxually.TechnicalTest.Models;
 
 namespace Taxually.TechnicalTest.Services;
 
-public class FrenchVatRegistrationService : IVatRegistrationService
+/// <summary>
+/// <see cref="IVatRegistrationService"/> implementation for France
+/// </summary>
+public class FranceVatRegistrationService : IVatRegistrationService
 {
+    /// <inheritdoc />
     public async Task RegisterCompany(VatRegistrationRequest request)
     {
         // France requires an excel spreadsheet to be uploaded to register for a VAT number

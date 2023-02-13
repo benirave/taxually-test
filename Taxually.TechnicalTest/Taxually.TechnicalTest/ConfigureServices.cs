@@ -10,8 +10,8 @@ public static class ConfigureServices
         services.AddSingleton<IVatRegistrationFactory, VatRegistrationFactory>();
 
         services.AddTransient<IVatRegistrationService, UnitedKingdomVatRegistrationService>();
-        services.AddTransient<IVatRegistrationService, FrenchVatRegistrationService>();
-        services.AddTransient<IVatRegistrationService, GermanVatRegistrationService>();
+        services.AddTransient<IVatRegistrationService, FranceVatRegistrationService>();
+        services.AddTransient<IVatRegistrationService, GermanyVatRegistrationService>();
 
         return services;
     }
