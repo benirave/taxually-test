@@ -16,7 +16,7 @@ public class VatRegistrationTests : TestBase
     [InlineData("GB", true)]
     [InlineData("FR", true)]
     [InlineData("DE", true)]
-	public async Task Request_VatRegistration(string country, bool succeeds)
+	public async Task Request_VatRegistration(string country, bool shouldSucceed)
 	{
 		// Arrange
 		var client = _factory.CreateClient();
@@ -29,7 +29,7 @@ public class VatRegistrationTests : TestBase
 		var act = async () => await serviceClient.CreateVatRegistration(request, CancellationToken.None);
 
 		// Assert
-		if (succeeds)
+		if (shouldSucceed)
 		{
             await act.Should().NotThrowAsync();
         }
