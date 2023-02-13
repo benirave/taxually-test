@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using Taxually.TechnicalTest.Clients;
 using Taxually.TechnicalTest.Models;
 
 namespace Taxually.TechnicalTest.Services;
@@ -8,6 +9,13 @@ namespace Taxually.TechnicalTest.Services;
 /// </summary>
 public class GermanyVatRegistrationService : IVatRegistrationService
 {
+    private readonly ITaxuallyQueueClient _queueClient;
+
+    public GermanyVatRegistrationService(ITaxuallyQueueClient queueClient)
+    {
+        _queueClient = queueClient;
+    }
+
     /// <inheritdoc />
     public async Task RegisterCompany(VatRegistrationRequest request)
     {
@@ -16,9 +24,9 @@ public class GermanyVatRegistrationService : IVatRegistrationService
             var serializer = new XmlSerializer(typeof(VatRegistrationRequest));
             serializer.Serialize(stringwriter, request);
             var xml = stringwriter.ToString();
-            var xmlQueueClient = new TaxuallyQueueClient();
+
             // Queue xml doc to be processed
-            await xmlQueueClient.EnqueueAsync("vat-registration-xml", xml);
+            await _queueClient.EnqueueAsync("vat-registration-xml", xml);
         }
     }
 }

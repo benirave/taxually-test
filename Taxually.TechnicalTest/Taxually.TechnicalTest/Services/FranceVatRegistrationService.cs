@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Taxually.TechnicalTest.Clients;
 using Taxually.TechnicalTest.Models;
 
 namespace Taxually.TechnicalTest.Services;
@@ -8,6 +9,13 @@ namespace Taxually.TechnicalTest.Services;
 /// </summary>
 public class FranceVatRegistrationService : IVatRegistrationService
 {
+    private readonly ITaxuallyQueueClient _queueClient;
+
+    public FranceVatRegistrationService(ITaxuallyQueueClient queueClient)
+    {
+        _queueClient = queueClient;
+    }
+
     /// <inheritdoc />
     public async Task RegisterCompany(VatRegistrationRequest request)
     {
@@ -16,9 +24,8 @@ public class FranceVatRegistrationService : IVatRegistrationService
         csvBuilder.AppendLine("CompanyName,CompanyId");
         csvBuilder.AppendLine($"{request.CompanyName}{request.CompanyId}");
         var csv = Encoding.UTF8.GetBytes(csvBuilder.ToString());
-        var excelQueueClient = new TaxuallyQueueClient();
 
         // Queue file to be processed
-        await excelQueueClient.EnqueueAsync("vat-registration-csv", csv);
+        await _queueClient.EnqueueAsync("vat-registration-csv", csv);
     }
 }
