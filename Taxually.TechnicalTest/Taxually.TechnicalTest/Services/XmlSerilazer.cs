@@ -4,6 +4,7 @@ namespace Taxually.TechnicalTest.Services;
 
 public class XmlSerilazer : IXmlSerilazer
 {
+    /// <inheritdoc />
     public string Serilaze<T>(T value)
     {
         using var stringwriter = new StringWriter();

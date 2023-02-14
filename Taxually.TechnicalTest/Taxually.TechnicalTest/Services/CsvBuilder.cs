@@ -10,6 +10,7 @@ public class CsvBuilder : ICsvBuilder
 
     public IDictionary<string, string> Values { get; private set; } = new Dictionary<string, string>();
 
+    /// <inheritdoc />
     public ICsvBuilder AddHeader(string name)
     {
         Headers.Add(name);
@@ -17,6 +18,7 @@ public class CsvBuilder : ICsvBuilder
         return this;
     }
 
+    /// <inheritdoc />
     public ICsvBuilder AddRow(string headerName, string value)
     {
         if (!Headers.Contains(headerName))
@@ -29,6 +31,7 @@ public class CsvBuilder : ICsvBuilder
         return this;
     }
 
+    /// <inheritdoc />
     public string Build(char separator = ',')
     {
         if (Headers.Count == 0 || Values.Count == 0)
