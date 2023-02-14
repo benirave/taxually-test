@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Taxually.TechnicalTest.Builders;
 using Taxually.TechnicalTest.Clients;
 using Taxually.TechnicalTest.Models;
 
@@ -11,21 +12,25 @@ public class FranceVatRegistrationService : IVatRegistrationService
 {
     private readonly ITaxuallyQueueClient _queueClient;
 
-    public FranceVatRegistrationService(ITaxuallyQueueClient queueClient)
+    private readonly ICsvBuilder _csvBuilder;
+
+    public FranceVatRegistrationService(ITaxuallyQueueClient queueClient, ICsvBuilder csvBuilder)
     {
         _queueClient = queueClient;
+        _csvBuilder = csvBuilder;
     }
 
     /// <inheritdoc />
     public async Task RegisterCompany(VatRegistrationRequest request)
     {
-        // France requires an excel spreadsheet to be uploaded to register for a VAT number
-        var csvBuilder = new StringBuilder();
-        csvBuilder.AppendLine("CompanyName,CompanyId");
-        csvBuilder.AppendLine($"{request.CompanyName}{request.CompanyId}");
-        var csv = Encoding.UTF8.GetBytes(csvBuilder.ToString());
+        var csv = _csvBuilder
+            .AddHeader(nameof(VatRegistrationRequest.CompanyName))
+            .AddHeader(nameof(VatRegistrationRequest.CompanyId))
+            .AddRow(nameof(VatRegistrationRequest.CompanyName), request.CompanyName)
+            .AddRow(nameof(VatRegistrationRequest.CompanyId), request.CompanyId)
+            .Build();
 
         // Queue file to be processed
-        await _queueClient.EnqueueAsync("vat-registration-csv", csv);
+        await _queueClient.EnqueueAsync("vat-registration-csv", Encoding.UTF8.GetBytes(csv));
     }
 }
