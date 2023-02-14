@@ -35,7 +35,8 @@ public class VatRegistrationTests : TestBase
         }
         else
 		{
-            await act.Should().ThrowExactlyAsync<ApiClientException>();
+			var exceptionDetails = (await act.Should().ThrowExactlyAsync<ApiClientException>().WithMessage("Country not supported"))
+				.And.StatusCode.Should().Be(System.Net.HttpStatusCode.InternalServerError);
         }
     }
 }

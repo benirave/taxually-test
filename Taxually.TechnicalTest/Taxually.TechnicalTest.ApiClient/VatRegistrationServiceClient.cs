@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace Taxually.TechnicalTest.ApiClient;
 
@@ -17,7 +18,17 @@ internal sealed class VatRegistrationServiceClient : IVatRegistrationServiceClie
 
         if (!result.IsSuccessStatusCode)
         {
-            throw new ApiClientException(result.StatusCode);
+            var errorResult = JsonSerializer.Deserialize<ErrorResult>(await result.Content.ReadAsStringAsync(), new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            if (errorResult is null)
+            {
+                throw new ArgumentNullException(nameof(errorResult));
+            }
+
+            throw new ApiClientException(result.StatusCode, errorResult);
         }
     }
 }
