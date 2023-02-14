@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Taxually.TechnicalTest.Builders;
 using Taxually.TechnicalTest.Clients;
 using Taxually.TechnicalTest.Factories;
 using Taxually.TechnicalTest.Services;
@@ -15,7 +16,9 @@ public class VatRegistrationFactoryTests
             .AddTransient<IVatRegistrationService, FranceVatRegistrationService>()
             .AddTransient<IVatRegistrationService, GermanyVatRegistrationService>()
             .AddTransient(_ => new Fake<ITaxuallyHttpClient>().FakedObject)
-            .AddTransient(_ => new Fake<ITaxuallyQueueClient>().FakedObject);
+            .AddTransient(_ => new Fake<ITaxuallyQueueClient>().FakedObject)
+            .AddTransient(_ => new Fake<ICsvBuilder>().FakedObject)
+            .AddTransient(_ => new Fake<IXmlSerilazer>().FakedObject);
     }
 
     [Theory]

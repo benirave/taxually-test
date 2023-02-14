@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using System.Xml.Serialization;
 using Taxually.TechnicalTest.Services;
 
 namespace Taxually.TechnicalTest.Tests;
@@ -39,6 +40,17 @@ public class XmlSerilazerTests
             return false;
         }
     }
+    public sealed class Test
+    {
+        public string Message { get; set; }
 
-    record Test(string Message);
+        public Test(string message)
+        {
+            Message = message;
+        }
+        public Test()
+        {
+
+        }
+    }
 }
