@@ -1,4 +1,4 @@
-﻿using Taxually.TechnicalTest.Services;
+﻿using Taxually.TechnicalTest.Services.VatRegistrationServices;
 
 namespace Taxually.TechnicalTest.Factories;
 

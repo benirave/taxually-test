@@ -2,7 +2,7 @@
 using Taxually.TechnicalTest.Clients;
 using Taxually.TechnicalTest.Models;
 
-namespace Taxually.TechnicalTest.Services;
+namespace Taxually.TechnicalTest.Services.VatRegistrationServices;
 
 /// <summary>
 /// <see cref="IVatRegistrationService"/> implementation for Germany
