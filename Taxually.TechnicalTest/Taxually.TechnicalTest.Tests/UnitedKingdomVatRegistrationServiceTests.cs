@@ -1,6 +1,6 @@
 ﻿using Taxually.TechnicalTest.Clients;
 using Taxually.TechnicalTest.Models;
-using Taxually.TechnicalTest.Services;
+using Taxually.TechnicalTest.Services.VatRegistrationServices;
 
 namespace Taxually.TechnicalTest.Tests;
 public class UnitedKingdomVatRegistrationServiceTests

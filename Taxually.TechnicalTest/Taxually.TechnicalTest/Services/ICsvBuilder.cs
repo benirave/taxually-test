@@ -1,4 +1,4 @@
-﻿namespace Taxually.TechnicalTest.Builders;
+﻿namespace Taxually.TechnicalTest.Services;
 
 public interface ICsvBuilder
 {
