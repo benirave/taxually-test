@@ -19,6 +19,7 @@ public static class ConfigureServices
         services.AddTransient<ITaxuallyQueueClient, TaxuallyQueueClient>();
 
         services.AddTransient<ICsvBuilder, CsvBuilder>();
+        services.AddTransient<IXmlSerilazer, XmlSerilazer>();
 
         return services;
     }

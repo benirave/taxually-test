@@ -1,5 +1,4 @@
-﻿using FakeItEasy;
-using Taxually.TechnicalTest.Clients;
+﻿using Taxually.TechnicalTest.Clients;
 using Taxually.TechnicalTest.Models;
 using Taxually.TechnicalTest.Services;
 
@@ -8,11 +7,13 @@ public class GermanyVatRegistrationServiceTests
 {
     private readonly Fake<ITaxuallyQueueClient> _queueClientFake = new Fake<ITaxuallyQueueClient>();
 
+    private readonly Fake<IXmlSerilazer> _xmlSerilazer = new Fake<IXmlSerilazer>();
+
     [Fact]
     public async Task RegisterCompany_Enquess_Xml()
     {
         // Arrange
-        var germanyVatRegistrationService = new GermanyVatRegistrationService(_queueClientFake.FakedObject);
+        var germanyVatRegistrationService = new GermanyVatRegistrationService(_queueClientFake.FakedObject, _xmlSerilazer.FakedObject);
 
         var request = new VatRegistrationRequest()
         {
@@ -25,6 +26,9 @@ public class GermanyVatRegistrationServiceTests
         await germanyVatRegistrationService.RegisterCompany(request);
 
         // Assert
+        _xmlSerilazer.CallsTo(x => x.Serilaze(request))
+            .MustHaveHappenedOnceExactly();
+
         _queueClientFake.CallsTo(x => x.EnqueueAsync("vat-registration-xml", A<string>.That.IsNotNull()))
             .MustHaveHappenedOnceExactly();
     }

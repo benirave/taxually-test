@@ -11,22 +11,20 @@ public class GermanyVatRegistrationService : IVatRegistrationService
 {
     private readonly ITaxuallyQueueClient _queueClient;
 
-    public GermanyVatRegistrationService(ITaxuallyQueueClient queueClient)
+    private readonly IXmlSerilazer _xmlSerilazer;
+
+    public GermanyVatRegistrationService(ITaxuallyQueueClient queueClient, IXmlSerilazer xmlSerilazer)
     {
         _queueClient = queueClient;
+        _xmlSerilazer = xmlSerilazer;
     }
 
     /// <inheritdoc />
     public async Task RegisterCompany(VatRegistrationRequest request)
     {
-        using (var stringwriter = new StringWriter())
-        {
-            var serializer = new XmlSerializer(typeof(VatRegistrationRequest));
-            serializer.Serialize(stringwriter, request);
-            var xml = stringwriter.ToString();
+        var xml = _xmlSerilazer.Serilaze(request);
 
-            // Queue xml doc to be processed
-            await _queueClient.EnqueueAsync("vat-registration-xml", xml);
-        }
+        // Queue xml doc to be processed
+        await _queueClient.EnqueueAsync("vat-registration-xml", xml);
     }
 }
